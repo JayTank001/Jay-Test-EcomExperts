@@ -1542,3 +1542,7 @@ a.product__text {
   color:#000;
   font-weight: 600;
 }
+.product-form__buttons.deactivated{
+  opacity:0.6;
+  pointer-events: none;
+}

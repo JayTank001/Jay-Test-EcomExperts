@@ -635,9 +635,20 @@
     document.querySelectorAll(".product-form__input.Size-dropdown input[type='radio']").forEach((e) => {
       e.addEventListener("change",function(evt){
           document.querySelector(".product-form__input.Size-dropdown p.Selected_value span").innerHTML = evt.target.value;
+          if(evt.target.value == "Unselected"){
+              document.querySelector(".product-form__buttons").classList.add("deactivated");
+          }else{
+            document.querySelector(".product-form__buttons").classList.remove("deactivated");
+          }
           evt.target.closest(".product-form__input.Size-dropdown").classList.remove("active");
       })
   })
+  var event = new Event('change');
+  document.querySelectorAll("input[name='Size']").forEach((e) => {
+    e.removeAttribute("checked");
+  })
+  document.querySelector("input[value='Unselected']").setAttribute("checked","")
+  document.querySelector("input[value='Unselected']").dispatchEvent(event);
   </script>
 
   {%- liquid
