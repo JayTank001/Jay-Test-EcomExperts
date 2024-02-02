@@ -49,14 +49,23 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
+        <fieldset class="js product-form__input product-form__input--pill {% if option.name == "Size" %}Size-dropdown{% endif %}">
           <legend class="form__label">{{ option.name }}</legend>
+          {% if option.name == "Size" %}
+            <p class="Selected_value"><span>{{ option.selected_value }}</span>{% render 'icon-caret' %}</p>
+          {% endif %}
+          {% if option.name == "Size" %}
+          <div class="dropdown">
+          {% endif %}
           {% render 'product-variant-options',
             product: product,
             option: option,
             block: block,
             picker_type: picker_type
           %}
+          {% if option.name == "Size" %}
+          </div>
+        {% endif %}
         </fieldset>
       {%- else -%}
         <div class="product-form__input product-form__input--dropdown">

@@ -629,7 +629,15 @@
         e.style.display = "none";
       }
     })
-    console.log($Get_selected_color)
+    document.querySelector(".product-form__input.Size-dropdown p.Selected_value").addEventListener("click",function(){
+      this.closest(".product-form__input.Size-dropdown").classList.toggle("active");
+    })
+    document.querySelectorAll(".product-form__input.Size-dropdown input[type='radio']").forEach((e) => {
+      e.addEventListener("change",function(evt){
+          document.querySelector(".product-form__input.Size-dropdown p.Selected_value span").innerHTML = evt.target.value;
+          evt.target.closest(".product-form__input.Size-dropdown").classList.remove("active");
+      })
+  })
   </script>
 
   {%- liquid
