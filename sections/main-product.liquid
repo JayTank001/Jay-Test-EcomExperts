@@ -616,6 +616,20 @@
         hiddenInput.value = event.currentTarget.value;
       });
     });
+    let $Get_selected_color = document.querySelector("input[name='Color']:checked").value.toLowerCase();
+    document.querySelectorAll("li.product__media-item").forEach((e) => {
+      e.classList.remove("is-active");
+    })
+    document.querySelector("li.product__media-item img[alt='"+ $Get_selected_color +"']").closest("li.product__media-item").classList.add("is-active");
+    document.querySelectorAll("li.thumbnail-list__item").forEach((e) => {
+      let $Get_thumbnail = e.querySelector("img").getAttribute("alt");
+      if($Get_thumbnail == $Get_selected_color){
+        e.style.display = "block";
+      }else{
+        e.style.display = "none";
+      }
+    })
+    console.log($Get_selected_color)
   </script>
 
   {%- liquid
