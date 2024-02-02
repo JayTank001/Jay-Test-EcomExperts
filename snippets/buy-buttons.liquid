@@ -60,7 +60,15 @@
           {% endif %}
           class="product-variant-id"
         >
-
+        {% assign get_selected_variant = product.metafields.custom.selected_variant_title %}
+        {% assign variant_id = "" %}
+        {% for variant in product.variants %}
+          {% if variant.title == get_selected_variant %}
+            {% assign variant_id = variant.id %}
+          {% endif %}
+        {% endfor %}
+        <input type="hidden" name="selected-variant" value="{{ variant_id }}">
+        <input type="hidden" name="bundle-pro" value="{{ product.metafields.custom.add_bundle_product.value.selected_or_first_available_variant.id }}">
         {%- if gift_card_recipient_feature_active -%}
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}
