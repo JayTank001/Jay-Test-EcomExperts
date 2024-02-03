@@ -64,7 +64,7 @@ if (!customElements.get('product-form')) {
               .then(response => response.json())
               .then(data => {
                   let All_variants = [];
-                  let Items = data;
+                  let Items = data.items;
                   Items.forEach((e) => {
                     All_variants.push(e.id);
                   })
