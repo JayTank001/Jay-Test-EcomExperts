@@ -987,6 +987,9 @@ class VariantSelects extends HTMLElement {
         e.style.display = "none";
       }
     })
+    if(window.innerWidth < 749){
+      document.querySelector("li.thumbnail-list__item img[alt='"+$Get_selected_color +"']").closest("button.thumbnail").click();
+    }
   }
 
   updateOptions() {

@@ -621,6 +621,11 @@
       e.classList.remove("is-active");
     })
     document.querySelector("li.product__media-item img[alt='"+ $Get_selected_color +"']").closest("li.product__media-item").classList.add("is-active");
+    if(window.innerWidth < 749){
+      setTimeout(function(){ 
+        document.querySelector("li.thumbnail-list__item img[alt='"+$Get_selected_color +"']").closest("button.thumbnail").click();
+       }, 500);
+    }
     document.querySelectorAll("li.thumbnail-list__item").forEach((e) => {
       let $Get_thumbnail = e.querySelector("img").getAttribute("alt");
       if($Get_thumbnail == $Get_selected_color){
@@ -629,6 +634,7 @@
         e.style.display = "none";
       }
     })
+    
     document.querySelector(".product-form__input.Size-dropdown p.Selected_value").addEventListener("click",function(){
       this.closest(".product-form__input.Size-dropdown").classList.toggle("active");
     })
