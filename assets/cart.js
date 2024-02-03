@@ -6,6 +6,15 @@ class CartRemoveButton extends HTMLElement {
       event.preventDefault();
       const cartItems = this.closest('cart-items') || this.closest('cart-drawer-items');
       cartItems.updateQuantity(this.dataset.index, 0);
+      let $Get_selected_variant = Number(localStorage.getItem("Selected_variant"));
+      let $bundleProduct = Number(localStorage.getItem("Bundle_pro"));
+      let $GetvariantId = Number(this.dataset.variant);
+      if($Get_selected_variant == $GetvariantId){
+        setTimeout(() => {
+            var $Getindex = document.querySelector("cart-remove-button[data-variant='"+ $bundleProduct +"']").getAttribute("data-index");
+            cartItems.updateQuantity($Getindex, 0);
+        },300);
+      }
     });
   }
 }
