@@ -1496,3 +1496,53 @@ a.product__text {
     border: none;
   }
 }
+
+
+/* new custom css starts from here */
+.product-form__input.Size-dropdown{
+  position: relative;
+}
+.product-form__input.Size-dropdown p.Selected_value{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border: 1px solid #000;
+  padding:8px 10px;
+  max-width:200px;
+  justify-content:space-between;
+  margin-bottom:0;
+  cursor: pointer;
+}
+.product-form__input.Size-dropdown p.Selected_value svg{
+  width:10px;
+  heigth:10px;
+}
+.product-form__input.Size-dropdown div.dropdown{
+    flex-direction: column;
+    max-width: 200px;
+    border: 1px solid #000;
+    border-top: 0;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    background: #FFF;
+    display: none;
+}
+.product-form__input.Size-dropdown.active  div.dropdown{
+  display: flex;
+}
+.product-form__input.Size-dropdown div.dropdown label{
+  margin: 0;
+  border: 0;
+  padding: 8px
+}
+.product-form__input.Size-dropdown input[type='radio']:checked + label{
+  background-color: transparent;
+  color:#000;
+  font-weight: 600;
+}
+.product-form__buttons.deactivated{
+  opacity:0.6;
+  pointer-events: none;
+}

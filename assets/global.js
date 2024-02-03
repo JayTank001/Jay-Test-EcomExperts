@@ -950,6 +950,7 @@ class VariantSelects extends HTMLElement {
   constructor() {
     super();
     this.addEventListener('change', this.onVariantChange);
+    
   }
 
   onVariantChange(event) {
@@ -971,6 +972,24 @@ class VariantSelects extends HTMLElement {
       this.renderProductInfo();
       this.updateShareUrl();
     }
+    // Custom variant chnage event starts from here
+    let $Get_selected_color = document.querySelector("input[name='Color']:checked").value.toLowerCase();
+    console.log("$Get_selected_color->",$Get_selected_color);
+    document.querySelectorAll("li.product__media-item").forEach((e) => {
+      e.classList.remove("is-active");
+    })
+    document.querySelector("li.product__media-item img[alt='"+ $Get_selected_color +"']").closest("li.product__media-item").classList.add("is-active");
+    document.querySelectorAll("li.thumbnail-list__item").forEach((e) => {
+      let $Get_thumbnail = e.querySelector("img").getAttribute("alt");
+      if($Get_thumbnail == $Get_selected_color){
+        e.style.display = "block";
+      }else{
+        e.style.display = "none";
+      }
+    })
+    if(window.innerWidth < 749){
+      document.querySelector("li.thumbnail-list__item img[alt='"+$Get_selected_color +"']").closest("button.thumbnail").click();
+    }
   }
 
   updateOptions() {
@@ -979,6 +998,7 @@ class VariantSelects extends HTMLElement {
         return element.value;
       }
       if (element.tagName === 'FIELDSET') {
+        
         return Array.from(element.querySelectorAll('input')).find((radio) => radio.checked)?.value;
       }
     });
@@ -1224,6 +1244,7 @@ class VariantSelects extends HTMLElement {
     if (volumeNote) volumeNote.classList.add('hidden');
     if (volumeTable) volumeTable.classList.add('hidden');
     if (qtyRules) qtyRules.classList.add('hidden');
+    
   }
 
   getVariantData() {

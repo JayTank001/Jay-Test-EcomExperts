@@ -97,8 +97,17 @@
       {% endif %}
     >
     <label for="{{ input_id }}">
+      {% if option.name == "Color" or option.name == "Colour" %}
+        {% assign Color_name = value | downcase %}
+        {% for media in product.media %}
+          {% if media.alt == Color_name %}
+            <img src="{{ media.src | img_url:'small' }}" height="30" width="30" alt="{{ media.alt }}">
+            {% break %}
+          {% endif %}
+        {% endfor %}
+      {% else %}
       {{ value -}}
-      {{ label_unavailable }}
+      {% endif %}
     </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
     <option

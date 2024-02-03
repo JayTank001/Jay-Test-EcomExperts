@@ -44,6 +44,57 @@ if (!customElements.get('product-form')) {
         fetch(`${routes.cart_add_url}`, config)
           .then((response) => response.json())
           .then((response) => {
+            let $Get_bundle_pro_id = Number(document.querySelector("input[name='bundle-pro']").value);
+            let $Get_selected_Varint_id = Number(document.querySelector("input[name='selected-variant']").value);
+            let parsedState = response;
+            if(response.id == $Get_selected_Varint_id){
+              async function addItem(varId,qty){
+                const Result = await fetch("/cart/add.json",{
+                  method:"Post",
+                  headers:{
+                    "content-Type": "application/json",
+                    "Accept": "application/json"
+                  },
+                  body:JSON.stringify({
+                    id: varId,
+                    quantity: qty
+                  })
+                })
+                fetch(`${routes.cart_change_url}`, config)
+                  .then((response) => {
+                    return response.text();
+                  })
+                  .then((state) => {
+                    const parsedState = JSON.parse(state);
+                    function getSectionInnerHTML(html, selector = '.shopify-section') {
+                      return new DOMParser().parseFromString(html, 'text/html').querySelector(selector).innerHTML;
+                    } 
+                    document.getElementById("cart-icon-bubble").innerHTML = getSectionInnerHTML(parsedState.sections['cart-icon-bubble'],".shopify-section");
+                    console.log("parsedState",parsedState)
+                  });
+              }
+              
+              fetch('/cart.json')
+              .then(response => response.json())
+              .then(data => {
+                console.log()
+                  let All_variants = [];
+                  let Items = data.items;
+                  Items.forEach((e) => {
+                    All_variants.push(e.id);
+                  })
+                  if(All_variants.includes($Get_bundle_pro_id) == false){
+                      localStorage.setItem("Selected_variant",$Get_selected_Varint_id);
+                      localStorage.setItem("Bundle_pro",$Get_bundle_pro_id);
+                      addItem($Get_bundle_pro_id,1);
+                      
+                  }
+              })
+              .catch(error => console.log("Error --> ", error));
+            }
+            console.log("$Get_bundle_pro_id-->",$Get_bundle_pro_id,"Get_selected_Varint_id->",$Get_selected_Varint_id)
+
+            console.log("response",response)
             if (response.status) {
               publish(PUB_SUB_EVENTS.cartError, {
                 source: 'product-form',
